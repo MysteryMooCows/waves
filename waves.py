@@ -6,7 +6,7 @@ def dists(xs, ys, point):
     return np.sqrt(((ys - point[1]) ** 2) + ((xs - point[0]) ** 2))
 
 def amp(x):
-    return np.sin((x ** 2) / 1200) ## TODO ## np.sin((x ** 2) / 500) ## 1 ## x ** 2
+    return 1 ## TODO ## np.sin((x ** 2) / 500) ## 1 ## x ** 2 ##  np.sin((x ** 2) / 1200) ## 
 
 def wavFunc(x):
     return np.cos(x * (np.pi / 12))
@@ -38,7 +38,7 @@ fig = plt.figure()
 im = plt.imshow(g.currPreses(), origin='lower', interpolation='none')
 
 def updateFig(*args):
-    g.t *= 1.05 ## g.t += 1
+    g.t += 1 ## g.t += 1.05
     
     im.set_array(g.currPreses())
     return im,
