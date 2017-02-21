@@ -5,6 +5,12 @@ import matplotlib.animation as animation
 def dists(xs, ys, point):
     return np.sqrt(((ys - point[1]) ** 2) + ((xs - point[0]) ** 2))
 
+def amp(x):
+    return 1 ## TODO ## np.sin((x ** 2) / 500) ## 1 ## x ** 2 ##  np.sin((x ** 2) / 1200) ## 
+
+def wavFunc(x):
+    return np.cos(x * (np.pi / 12)) ## np.cos(x * (np.pi / 12)) ## np.cos(np.pi / x)
+
 def presFunc(t, x):
     currX = t - x
     return amp(currX) * wavFunc(currX)
@@ -22,9 +28,8 @@ class Grid:
         return np.sum(presFunc(self.t, dists(self.xx, self.yy, d.pos)) for d in self.disturbances)
 
 class Disturbance:
-    def __init__(self, x, y, wavFunc):
+    def __init__(self, x, y):
         self.pos = (x, y)
-        self.wavFunc = wavFunc
 
 g = Grid(200, 200)
 g.disturb(100, 100)
