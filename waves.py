@@ -5,29 +5,25 @@ import matplotlib.animation as animation
 def dists(xs, ys, point):
     return np.sqrt(((ys - point[1]) ** 2) + ((xs - point[0]) ** 2))
 
-def presFunc(t, x):
-    currX = t - x
-    return amp(currX) * wavFunc(currX)
-
 class Grid:
     def __init__(self, cols, rows):
         self.xx, self.yy = np.meshgrid(range(cols), range(rows))
-        self.disturbances = []
+        disturbances = []
         self.t = 1
 
-    def disturb(self, x, y):
-        self.disturbances.append(Disturbance(x, y))
-
     def currPreses(self):
-        return np.sum(presFunc(self.t, dists(self.xx, self.yy, d.pos)) for d in self.disturbances)
+        return np.sum(d.wavFunc(self.t, dists(self.xx, self.yy, d.pos)) for d in disturbances)
 
 class Disturbance:
     def __init__(self, x, y, wavFunc):
         self.pos = (x, y)
         self.wavFunc = wavFunc
 
+disturbances = []
+
 g = Grid(200, 200)
-g.disturb(100, 100)
+
+disturbances.append(Disturbance(100, 100, (lambda t, x: np.sin(t - x))))
 
 fig = plt.figure()
 im = plt.imshow(g.currPreses(), origin='lower', interpolation='none')
